@@ -1,5 +1,7 @@
 package com.example.api;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,43 +17,40 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.example.exception.PostNotCreatedException;
 import com.example.model.Posts;
 import com.example.model.User;
-import com.example.service.AdminCreatePostService;
-import com.example.service.UserInformationPostsService;
+import com.example.service.CreatePostService;
+import com.example.service.UserInformationService;
 
 @RestController
-@RequestMapping(value = "/projectAPI")
+@RequestMapping(value = "/projectapi")
 public class ProjectApi {
 
 	@Autowired
-	private UserInformationPostsService getAllUsersWithPosts;
+	private UserInformationService getAllUsersWithPosts;
 	
 	@Autowired
-	private AdminCreatePostService adminCreatePostService;
+	private CreatePostService createPostService;
 
-	@GetMapping(value = "/getUsers")
+	@GetMapping(value = "/getusers")
 	public ResponseEntity<List<User>> getUsersWithPosts() {
 		try {
 			return new ResponseEntity<List<User>>(getAllUsersWithPosts.getAllUsersWithPosts(), HttpStatus.OK);
-		} catch (HttpStatusCodeException e) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
-		}
+		} 
 		catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
 		}
 
 	}
 	
-	//@RequestMapping(value = "/createPost/{userId}", method = RequestMethod.POST)
-	@PostMapping(value="/createPost/{UserId}")
-	public ResponseEntity<String> createPostForUser(@RequestBody Posts post,@PathVariable String UserId){
+	
+	@PostMapping(value="/createpost/{userid}")
+	public ResponseEntity<String> createPostForUser(@RequestBody Posts post,@PathVariable String userid) {
 		try {
-			Long userId= Long.parseLong(UserId);
-			adminCreatePostService.createPost(userId,post);
+			Long userId= Long.parseLong(userid);
+			createPostService.createPost(userId,post);
 			return new ResponseEntity<String>("post created for userid: "+userId,HttpStatus.OK);
-		}catch(ResponseStatusException e) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
 		}
 		catch(Exception e) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);

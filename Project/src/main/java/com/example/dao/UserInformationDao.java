@@ -4,6 +4,6 @@ import java.util.List;
 
 import com.example.model.User;
 
-public interface UserInformationPostsDao {
+public interface UserInformationDao {
 	public List<User> getAllUsersWithPosts() throws Exception;
 }
