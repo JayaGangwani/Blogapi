@@ -5,7 +5,8 @@ import java.io.IOException;
 
 public class PostNotCreatedException extends IOException {
 
-	public PostNotCreatedException(String string) {
+	public PostNotCreatedException(String message) {
+		super(message);
 		// TODO Auto-generated constructor stub
 	}
 
