@@ -5,26 +5,27 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.dao.UserInformationPostsDao;
+import com.example.dao.UserInformationDao;
+import com.example.exception.UserNotFoundException;
 import com.example.model.User;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class UserInformationPostsServiceImpl implements UserInformationPostsService {
+public class UserInformationServiceImpl implements UserInformationService {
 
 	@Autowired
-	private UserInformationPostsDao allUsersWithPostsDao;
+	private UserInformationDao allUsersWithPostsDao;
 
 	@Override
 	public List<User> getAllUsersWithPosts() throws Exception  {
         
 		log.info("Required all the information of User and their posts");
 		List<User> usersWithPosts = allUsersWithPostsDao.getAllUsersWithPosts();
-		if (usersWithPosts==null || usersWithPosts.isEmpty()) {
-			 log.error("The information of users is" +usersWithPosts );
-			throw new NullPointerException("Service.UserNotFound");
+		if (null==usersWithPosts || usersWithPosts.isEmpty()) {
+			 log.error("The information of users is {}" ,usersWithPosts);
+			throw new UserNotFoundException("Service.UserNotFound");
 		}
 		return usersWithPosts;
 	}

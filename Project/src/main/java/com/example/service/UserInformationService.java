@@ -4,6 +4,6 @@ import java.util.List;
 
 import com.example.model.User;
 
-public interface UserInformationPostsService {
+public interface UserInformationService {
 	public List<User> getAllUsersWithPosts() throws Exception;
 }

@@ -1,5 +1,6 @@
 package com.example.dao;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,8 +9,10 @@ import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Repository;
 
+import com.example.exception.UserNotFoundException;
 import com.example.model.Address;
 import com.example.model.Geo;
 import com.example.model.Posts;
@@ -19,10 +22,10 @@ import lombok.extern.slf4j.Slf4j;
 
 @Repository
 @Slf4j
-public class UserInformationPostsDaoImpl implements UserInformationPostsDao {
+public class UserInformationDaoImpl implements UserInformationDao {
 	
 	@SuppressWarnings("unchecked")
-	public List<User> getAllUsersWithPosts() throws Exception {
+	public List<User> getAllUsersWithPosts() throws IOException , FileNotFoundException, ParseException{
 		JSONParser jsonparser = new JSONParser();
 		try {
 
@@ -48,7 +51,7 @@ public class UserInformationPostsDaoImpl implements UserInformationPostsDao {
 				usersList.add(parseUserObject((JSONObject) object));
 			});
 			
-		  log.info("posts addition into user");
+		    log.info("posts addition into user");
 			usersList.stream().forEach(user -> postsList.stream().filter(post->
 			post.getUserId() == user.getId()).forEach(post -> 
 			{
@@ -59,14 +62,12 @@ public class UserInformationPostsDaoImpl implements UserInformationPostsDao {
 			postsReader.close();
 			fileReader.close();
 			return usersList;
-
+         
 		} 
-		catch (NullPointerException e) {
-			throw null;
+		catch (UserNotFoundException ex) {
+			throw ex;
 		}
-		catch(Exception e){
-			throw null;
-		}
+		
 	}
 
 	 
