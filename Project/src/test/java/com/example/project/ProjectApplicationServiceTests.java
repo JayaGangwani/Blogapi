@@ -46,7 +46,7 @@ import com.example.service.UserInformationService;
 		private CreatePostService postService;
 		
 		@Test
-		void validUserInformationData() throws Exception {
+		void shouldReturnValidId() throws Exception {
 			User user=new User();
 			user.setId(1l);
 			List<User> userList=new ArrayList<User>();
@@ -56,7 +56,7 @@ import com.example.service.UserInformationService;
 		}
 		
 		@Test
-		void invalidUserInformationData() throws Exception{
+		void shouldUserInformationDataThrowException() throws Exception{
 			assertThrows(UserNotFoundException.class,
 		            ()->{
 		            	userInformationDao.getAllUsersWithPosts();
@@ -65,13 +65,13 @@ import com.example.service.UserInformationService;
 		}
 		
 		@Test
-		void validCreatePost() throws Exception{
+		void shouldCreatePost() throws Exception{
 			given(createPostDao.createPost(Mockito.anyLong(), Mockito.anyObject())).willReturn(" ");
 			assertEquals("Created Post", postService.createPost(Mockito.anyLong(), Mockito.anyObject()));
 		}
 		
 		@Test
-		void invalidCreatePost() throws Exception{
+		void shouldCreatePostCheckNullAndThrowException() throws Exception{
 			
 			given(createPostDao.createPost(Mockito.anyLong(), Mockito.anyObject())).willReturn(null);
 			postService.createPost(Mockito.anyLong(), Mockito.anyObject());

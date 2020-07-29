@@ -58,7 +58,7 @@ class ProjectApplicationDaoTests {
 		
 		
 		@Test
-		void shouldCreatePostInformation() throws Exception{
+		void shouldCreatePostForEmptyCheck() throws Exception{
 			assertEquals(" ", createPostDao.createPost(Mockito.anyLong(), Mockito.anyObject()));
 			}
 		

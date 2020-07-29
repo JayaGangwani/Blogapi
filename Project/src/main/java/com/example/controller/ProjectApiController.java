@@ -1,4 +1,4 @@
-package com.example.api;
+package com.example.controller;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -25,7 +25,7 @@ import com.example.service.UserInformationService;
 
 @RestController
 @RequestMapping(value = "/projectapi")
-public class ProjectApi {
+public class ProjectApiController {
 
 	@Autowired
 	private UserInformationService getAllUsersWithPosts;
@@ -39,7 +39,7 @@ public class ProjectApi {
 			return new ResponseEntity<List<User>>(getAllUsersWithPosts.getAllUsersWithPosts(), HttpStatus.OK);
 		} 
 		catch (Exception e) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
 		}
 
 	}
@@ -53,7 +53,7 @@ public class ProjectApi {
 			return new ResponseEntity<String>("post created for userid: "+userId,HttpStatus.OK);
 		}
 		catch(Exception e) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
 		}
 		
 	}

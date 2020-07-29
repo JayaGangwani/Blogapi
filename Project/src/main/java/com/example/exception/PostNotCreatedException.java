@@ -7,7 +7,7 @@ public class PostNotCreatedException extends IOException {
 
 	public PostNotCreatedException(String message) {
 		super(message);
-		// TODO Auto-generated constructor stub
+		
 	}
 
 }

@@ -19,7 +19,7 @@ public class CreatePostDaoImpl implements CreatePostDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public String createPost(Long userId, Posts post) throws  FileNotFoundException, IOException {
+	public String createPost(Long userId, Posts post) throws  IOException {
 		String ret = null;
 		log.debug("userId value" +userId);
 		JSONObject postDetails = new JSONObject();

@@ -1,6 +1,6 @@
 package com.example.dao;
 
-import java.io.FileNotFoundException;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 public class UserInformationDaoImpl implements UserInformationDao {
 	
 	@SuppressWarnings("unchecked")
-	public List<User> getAllUsersWithPosts() throws IOException , FileNotFoundException, ParseException{
+	public List<User> getAllUsersWithPosts() throws  ParseException, IOException {
 		JSONParser jsonparser = new JSONParser();
 		try {
 

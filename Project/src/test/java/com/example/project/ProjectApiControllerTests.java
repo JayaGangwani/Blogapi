@@ -47,7 +47,7 @@ import com.example.service.UserInformationService;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ProjectApplicationControllerTests {
+public class ProjectApiControllerTests {
 	
 	@Autowired                           
     private MockMvc mockMvc;  
@@ -62,15 +62,15 @@ public class ProjectApplicationControllerTests {
     @Test
 	public void shouldFetchAllUser() throws Exception
 	{
-		List<User> UserWithPosts = postService.getAllUsersWithPosts();
-		given(postService.getAllUsersWithPosts()).willReturn(UserWithPosts);
+		List<User> userWithPosts = postService.getAllUsersWithPosts();
+		given(postService.getAllUsersWithPosts()).willReturn(userWithPosts);
 		this.mockMvc.perform(get("/projectapi/getusers"))
 		.andExpect(status().isOk())
-		.andExpect(jsonPath("$.size()", is (UserWithPosts.size())));
+		.andExpect(jsonPath("$.size()", is (userWithPosts.size())));
 	}
 	
 	@Test
-	public void UserDataException() throws Exception {
+	public void shouldFetchAllUserThrowException() throws Exception {
 	this.mockMvc.perform(get("/projectapi/getusers")
      .contentType(MediaType.APPLICATION_JSON))
      .andExpect(status().isBadRequest())
@@ -87,7 +87,7 @@ public class ProjectApplicationControllerTests {
 	}
 	
 	@Test
-	public void CreatePostException() throws Exception{
+	public void shouldCreatePostException() throws Exception{
 		given(userService.createPost(Mockito.anyLong(), Mockito.anyObject())).willReturn(null);
 		Long UserId =1L;
 		this.mockMvc.perform(post("/projectapi/createpost/{userid}", UserId)

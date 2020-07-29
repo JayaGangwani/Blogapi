@@ -8,6 +8,6 @@ import com.example.model.Posts;
 
 public interface CreatePostDao {
 
-	public String createPost(Long userId,Posts post) throws FileNotFoundException, IOException ;
+	public String createPost(Long userId,Posts post) throws IOException ;
 	
 }
